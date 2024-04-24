@@ -79,7 +79,7 @@ class ImageDisplayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (imagePath == null) {
-      return SizedBox.shrink(); 
+      return const SizedBox.shrink(); 
     }
 
     final file = File(imagePath!);
@@ -90,7 +90,7 @@ class ImageDisplayWidget extends StatelessWidget {
       height: double.infinity, 
       fit: BoxFit.cover,
       errorBuilder: (context, error, stackTrace) {
-        return Text('Error loading image');
+        return const Text('Error loading image');
       },
     );
   }

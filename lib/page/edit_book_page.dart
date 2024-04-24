@@ -81,7 +81,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
 
   Widget buildAttachButton() {
     return IconButton(
-      icon: Icon(Icons.attach_file),
+      icon: const Icon(Icons.attach_file),
       onPressed: () async {
         if (isImagePickerActive) return;
 

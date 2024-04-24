@@ -1,13 +1,13 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import '../model/note.dart';
+import '../model/book.dart';
 
-class NotesDatabase {
-  static final NotesDatabase instance = NotesDatabase._init();
+class BooksDatabase {
+  static final BooksDatabase instance = BooksDatabase._init();
 
   static Database? _database;
 
-  NotesDatabase._init();
+  BooksDatabase._init();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -30,7 +30,7 @@ class NotesDatabase {
     const imagePathType = 'TEXT';
 
     await db.execute('''
-CREATE TABLE $tableNotes ( 
+CREATE TABLE $tableBooks ( 
   ${NoteFields.id} $idType, 
   ${NoteFields.title} $textType,
   ${NoteFields.description} $textType,
@@ -42,17 +42,14 @@ CREATE TABLE $tableNotes (
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (newVersion > oldVersion) {
-      await db.execute('DROP TABLE IF EXISTS $tableNotes');
+      await db.execute('DROP TABLE IF EXISTS $tableBooks');
       _createDB(db, newVersion);
     }
   }
 
   Future<Note> create(Note note) async {
     final db = await instance.database;
-
-    print('Creating note with imagePath: ${note.imagePath}');
-
-    final id = await db.insert(tableNotes, note.toJson());
+    final id = await db.insert(tableBooks, note.toJson());
     return note.copy(id: id, imagePath: note.imagePath);
   }
 
@@ -60,7 +57,7 @@ CREATE TABLE $tableNotes (
     final db = await instance.database;
 
     final maps = await db.query(
-      tableNotes,
+      tableBooks,
       columns: NoteFields.values,
       where: '${NoteFields.id} = ?',
       whereArgs: [id],
@@ -77,7 +74,7 @@ CREATE TABLE $tableNotes (
     final db = await instance.database;
 
     final orderBy = '${NoteFields.time} ASC';
-    final result = await db.query(tableNotes, orderBy: orderBy);
+    final result = await db.query(tableBooks, orderBy: orderBy);
 
     return result.map((json) => Note.fromJson(json)).toList();
   }
@@ -86,7 +83,7 @@ CREATE TABLE $tableNotes (
     final db = await instance.database;
 
     return db.update(
-      tableNotes,
+      tableBooks,
       note.toJson(),
       where: '${NoteFields.id} = ?',
       whereArgs: [note.id],
@@ -97,7 +94,7 @@ CREATE TABLE $tableNotes (
     final db = await instance.database;
 
     return await db.delete(
-      tableNotes,
+      tableBooks,
       where: '${NoteFields.id} = ?',
       whereArgs: [id],
     );

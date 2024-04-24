@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../db/notes_database.dart';
-import '../model/note.dart';
-import '../page/edit_note_page.dart';
+import '../db/books_database.dart';
+import '../model/book.dart';
+import 'edit_book_page.dart';
 import 'dart:io';
 
 class NoteDetailPage extends StatefulWidget {
@@ -31,7 +31,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   Future refreshNote() async {
     setState(() => isLoading = true);
 
-    note = await NotesDatabase.instance.readNote(widget.noteId);
+    note = await BooksDatabase.instance.readNote(widget.noteId);
 
     setState(() => isLoading = false);
   }
@@ -94,7 +94,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   Widget deleteButton() => IconButton(
         icon: const Icon(Icons.delete),
         onPressed: () async {
-          await NotesDatabase.instance.delete(widget.noteId);
+          await BooksDatabase.instance.delete(widget.noteId);
 
           Navigator.of(context).pop();
         },

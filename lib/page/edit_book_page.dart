@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../db/notes_database.dart';
-import '../model/note.dart';
-import '../widget/note_form_widget.dart';
+import '../db/books_database.dart';
+import '../model/book.dart';
+import '../widget/book_form_widget.dart';
 import 'dart:io';
 
 class AddEditNotePage extends StatefulWidget {
@@ -122,7 +122,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
       imagePath: imagePath,
     );
 
-    await NotesDatabase.instance.update(note);
+    await BooksDatabase.instance.update(note);
   }
 
   Future addNote() async {
@@ -133,6 +133,6 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
       imagePath: imagePath,
     );
 
-    await NotesDatabase.instance.create(note);
+    await BooksDatabase.instance.create(note);
   }
 }

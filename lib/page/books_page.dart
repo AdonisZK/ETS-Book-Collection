@@ -1,40 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import '../db/notes_database.dart';
-import '../model/note.dart';
-import '../page/edit_note_page.dart';
-import '../page/note_detail_page.dart';
-import '../widget/note_card_widget.dart';
+import '../db/books_database.dart';
+import '../model/book.dart';
+import 'edit_book_page.dart';
+import 'book_detail_page.dart';
+import '../widget/book_card_widget.dart';
 
-class NotesPage extends StatefulWidget {
-  const NotesPage({super.key});
+class BooksPage extends StatefulWidget {
+  const BooksPage({super.key});
 
   @override
-  State<NotesPage> createState() => _NotesPageState();
+  State<BooksPage> createState() => _BooksPageState();
 }
 
-class _NotesPageState extends State<NotesPage> {
-  late List<Note> notes;
+class _BooksPageState extends State<BooksPage> {
+  late List<Note> books;
   bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
 
-    refreshNotes();
+    refreshBooks();
   }
 
   @override
   void dispose() {
-    NotesDatabase.instance.close();
+    BooksDatabase.instance.close();
 
     super.dispose();
   }
 
-  Future refreshNotes() async {
+  Future refreshBooks() async {
     setState(() => isLoading = true);
 
-    notes = await NotesDatabase.instance.readAllNotes();
+    books = await BooksDatabase.instance.readAllNotes();
 
     setState(() => isLoading = false);
   }
@@ -51,12 +51,12 @@ class _NotesPageState extends State<NotesPage> {
         body: Center(
           child: isLoading
               ? const CircularProgressIndicator()
-              : notes.isEmpty
+              : books.isEmpty
                   ? const Text(
-                      'No Notes',
+                      'No Books',
                       style: TextStyle(color: Colors.black, fontSize: 24),
                     )
-                  : buildNotes(),
+                  : buildBooks(),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.white,
@@ -66,18 +66,18 @@ class _NotesPageState extends State<NotesPage> {
               MaterialPageRoute(builder: (context) => const AddEditNotePage()),
             );
 
-            refreshNotes();
+            refreshBooks();
           },
         ),
       );
-  Widget buildNotes() => StaggeredGrid.count(
+  Widget buildBooks() => StaggeredGrid.count(
       crossAxisCount: 2,
       mainAxisSpacing: 2,
       crossAxisSpacing: 2,
       children: List.generate(
-        notes.length,
+        books.length,
         (index) {
-          final note = notes[index];
+          final note = books[index];
 
           return StaggeredGridTile.fit(
             crossAxisCellCount: 1,
@@ -87,7 +87,7 @@ class _NotesPageState extends State<NotesPage> {
                   builder: (context) => NoteDetailPage(noteId: note.id!),
                 ));
 
-                refreshNotes();
+                refreshBooks();
               },
               child: NoteCardWidget(note: note, index: index),
             ),

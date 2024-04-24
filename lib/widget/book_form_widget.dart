@@ -79,18 +79,17 @@ class ImageDisplayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (imagePath == null) {
-      return SizedBox.shrink(); // Return an empty widget if there's no image
+      return SizedBox.shrink(); 
     }
 
     final file = File(imagePath!);
 
     return Image.file(
       file,
-      width: double.infinity, // You can adjust the size as needed
-      height: double.infinity, // You can adjust the size as needed
+      width: double.infinity, 
+      height: double.infinity, 
       fit: BoxFit.cover,
       errorBuilder: (context, error, stackTrace) {
-        print('Error loading image: $error');
         return Text('Error loading image');
       },
     );

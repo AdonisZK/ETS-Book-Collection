@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'page/notes_page.dart';
+import 'page/books_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,7 +12,7 @@ void main() async {
 }
 
 class MainApp extends StatelessWidget {
-  static String title = 'Notes SQLite';
+  static String title = 'Books SQLite';
 
   const MainApp({required Key key}) : super(key: key);
 
@@ -30,7 +30,7 @@ class MainApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      home: const NotesPage(),
+      home: const BooksPage(),
     );
   }
 }

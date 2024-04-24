@@ -1,4 +1,4 @@
-final String tableNotes = 'notes';
+final String tableBooks = 'notes';
 
 class NoteFields {
   static final List<String> values = [
@@ -6,11 +6,11 @@ class NoteFields {
     id, title, description, time, imagePath
   ];
 
-  static final String id = '_id';
-  static final String title = 'title';
-  static final String description = 'description';
-  static final String time = 'time';
-  static final String imagePath = 'imagePath';
+  static const String id = '_id';
+  static const String title = 'title';
+  static const String description = 'description';
+  static const String time = 'time';
+  static const String imagePath = 'imagePath';
 }
 
 class Note {
@@ -45,8 +45,6 @@ class Note {
 
   static Note fromJson(Map<String, Object?> json) {
     final imagePath = json[NoteFields.imagePath] as String?;
-    print('Reading note with imagePath: $imagePath'); // Add this line
-
     return Note(
       id: json[NoteFields.id] as int?,
       title: json[NoteFields.title] as String,

@@ -83,8 +83,8 @@ stateless
 `class ImageDisplayWidget extends StatelessWidget`
 stateful
 `class BooksPage extends StatefulWidget`
-- CRUD Sqflite
-create
+- CRUD Sqflite <br>
+Create 
 ```dart
   Future<Note> create(Note note) async {
     final db = await instance.database;
@@ -92,7 +92,7 @@ create
     return note.copy(id: id, imagePath: note.imagePath);
   }
 ```
-read
+Read
 ```dart
   Future<List<Note>> readAllNotes() async {
     final db = await instance.database;
@@ -103,7 +103,7 @@ read
     return result.map((json) => Note.fromJson(json)).toList();
   }
 ```
-update
+Update
 ```dart
   Future<int> update(Note note) async {
     final db = await instance.database;
@@ -116,7 +116,7 @@ update
     );
   }
 ```
-delete
+Delete
 ```dart
   Future<int> delete(int id) async {
     final db = await instance.database;

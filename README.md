@@ -7,6 +7,9 @@
 ## Install Dependencies
 ```flutter pub get```
 
+## Overview
+![image](https://github.com/AdonisZK/ETS-Book-Collection/assets/48209612/24d6d105-bc9f-4f6a-8978-cbfaaad90c1e)
+
 ## CRUD
 ### Create
 ![image](https://github.com/AdonisZK/ETS-Book-Collection/assets/48209612/7d6f8e19-2e8c-49cd-945b-6f757a406aab)

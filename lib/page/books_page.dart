@@ -34,9 +34,13 @@ class _BooksPageState extends State<BooksPage> {
   Future refreshBooks() async {
     setState(() => isLoading = true);
 
-    books = await BooksDatabase.instance.readAllNotes();
-
-    setState(() => isLoading = false);
+    try {
+      books = await BooksDatabase.instance.readAllNotes();
+    } catch (e) {
+      print('An error occurred while reading from the database: $e');
+    } finally {
+      setState(() => isLoading = false);
+    }
   }
 
   @override

@@ -46,9 +46,12 @@ class NoteCardWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-            Text(
-              time,
-              style: TextStyle(color: Colors.grey.shade700),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Text(
+                time,
+                style: TextStyle(color: Colors.grey.shade700),
+              ),
             ),
             const SizedBox(height: 4),
             Text(

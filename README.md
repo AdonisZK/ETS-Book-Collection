@@ -8,7 +8,8 @@
 ```flutter pub get```
 
 ## Overview
-![image](https://github.com/AdonisZK/ETS-Book-Collection/assets/48209612/24d6d105-bc9f-4f6a-8978-cbfaaad90c1e)
+![image](https://github.com/AdonisZK/ETS-Book-Collection/assets/48209612/b637b0c8-f8a8-4f9a-b272-a4da7ffcb236)
+
 
 ## CRUD
 ### Create

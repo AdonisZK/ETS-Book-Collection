@@ -26,10 +26,103 @@
 ![image](https://github.com/AdonisZK/ETS-Book-Collection/assets/48209612/6440440b-fea1-418e-a904-71069623c372)
 ![image](https://github.com/AdonisZK/ETS-Book-Collection/assets/48209612/12343e12-abd4-49ba-89de-e6196019bfda)
 
-## Points
+
+## Points example
 - Classes
+```dart
+class AddEditNotePage extends StatefulWidget {
+  final Note? note;
+
+  const AddEditNotePage({
+    Key? key,
+    this.note,
+  }) : super(key: key);
+
+  @override
+  State<AddEditNotePage> createState() => _AddEditNotePageState();
+}
+```
 - images
+```dart
+  Widget buildAttachButton() {
+    return IconButton(
+      icon: Icon(Icons.attach_file),
+      onPressed: () async {
+        if (isImagePickerActive) return;
+
+        isImagePickerActive = true;
+        final picker = ImagePicker();
+        final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+        if (pickedFile != null) {
+          setState(() {
+            imagePath = pickedFile.path;
+          });
+        }
+        isImagePickerActive = false;
+      },
+    );
+  }
+```
 - error handling
-- stateless and stateful
+```dart
+    try {
+      books = await BooksDatabase.instance.readAllNotes();
+    } catch (e) {
+      print('An error occurred while reading from the database: $e');
+    } finally {
+      setState(() => isLoading = false);
+    }
+```
+- stateless and stateful <br>
+stateless
+`class ImageDisplayWidget extends StatelessWidget`
+stateful
+`class BooksPage extends StatefulWidget`
 - CRUD Sqflite
-- use at least 5 different widgets
+create
+```dart
+  Future<Note> create(Note note) async {
+    final db = await instance.database;
+    final id = await db.insert(tableBooks, note.toJson());
+    return note.copy(id: id, imagePath: note.imagePath);
+  }
+```
+read
+```dart
+  Future<List<Note>> readAllNotes() async {
+    final db = await instance.database;
+
+    final orderBy = '${NoteFields.time} ASC';
+    final result = await db.query(tableBooks, orderBy: orderBy);
+
+    return result.map((json) => Note.fromJson(json)).toList();
+  }
+```
+update
+```dart
+  Future<int> update(Note note) async {
+    final db = await instance.database;
+
+    return db.update(
+      tableBooks,
+      note.toJson(),
+      where: '${NoteFields.id} = ?',
+      whereArgs: [note.id],
+    );
+  }
+```
+delete
+```dart
+  Future<int> delete(int id) async {
+    final db = await instance.database;
+
+    return await db.delete(
+      tableBooks,
+      where: '${NoteFields.id} = ?',
+      whereArgs: [id],
+    );
+  }
+```
+- use at least 5 different widgets <br>
+`AppBar`,`Text`,`FloatingActionButton`,`Icon`,`Column`

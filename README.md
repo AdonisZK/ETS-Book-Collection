@@ -125,4 +125,4 @@ delete
   }
 ```
 - use at least 5 different widgets <br>
-`AppBar`,`Text`,`FloatingActionButton`,`Icon`,`Column`
+`AppBar`, `Text`, `FloatingActionButton`, `Icon`, `Column`

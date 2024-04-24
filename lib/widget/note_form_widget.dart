@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 class NoteFormWidget extends StatelessWidget {
-  final bool? isImportant;
-  final int? number;
   final String? title;
   final String? description;
-  final ValueChanged<bool> onChangedImportant;
-  final ValueChanged<int> onChangedNumber;
   final ValueChanged<String> onChangedTitle;
   final ValueChanged<String> onChangedDescription;
   final String? imagePath;
@@ -15,12 +11,8 @@ class NoteFormWidget extends StatelessWidget {
   const NoteFormWidget({
     Key? key,
     this.imagePath,
-    this.isImportant = false,
-    this.number = 0,
     this.title = '',
     this.description = '',
-    required this.onChangedImportant,
-    required this.onChangedNumber,
     required this.onChangedTitle,
     required this.onChangedDescription,
   }) : super(key: key);

@@ -21,21 +21,17 @@ class NotesDatabase {
     final path = join(dbPath, filePath);
 
     return await openDatabase(path,
-        version: 1, onCreate: _createDB, onUpgrade: _onUpgrade);
+        version: 3, onCreate: _createDB, onUpgrade: _onUpgrade);
   }
 
   Future _createDB(Database db, int version) async {
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     const textType = 'TEXT NOT NULL';
-    const boolType = 'BOOLEAN NOT NULL';
-    const integerType = 'INTEGER NOT NULL';
     const imagePathType = 'TEXT';
 
     await db.execute('''
 CREATE TABLE $tableNotes ( 
   ${NoteFields.id} $idType, 
-  ${NoteFields.isImportant} $boolType,
-  ${NoteFields.number} $integerType,
   ${NoteFields.title} $textType,
   ${NoteFields.description} $textType,
   ${NoteFields.time} $textType,
@@ -46,9 +42,8 @@ CREATE TABLE $tableNotes (
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (newVersion > oldVersion) {
-      await db.execute('''
-      ALTER TABLE $tableNotes ADD COLUMN ${NoteFields.imagePath} TEXT;
-    ''');
+      await db.execute('DROP TABLE IF EXISTS $tableNotes');
+      _createDB(db, newVersion);
     }
   }
 
